@@ -19,4 +19,10 @@ describe("Gilded Rose", () => {
     gildedRose.updateQuality();
     expect(gildedRose.items[0].quality).toBe(4);
   });
+  it("Once the sell by date has passed, Quality degrades twice as fast", () => {
+    const gildedRose = new GildedRose([new Item("new item", 0, 10)]);
+    gildedRose.updateQuality();
+    gildedRose.updateQuality();
+    expect(gildedRose.items[0].quality).toBe(6);
+  });
 });
