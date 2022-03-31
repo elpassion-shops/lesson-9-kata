@@ -60,8 +60,6 @@ export class GildedRose {
     this.items = items;
   }
 
-  private SPECIAL_ITEMS = ['Aged Brie', 'Sulfuras, Hand of Ragnaros', 'Backstage passes to a TAFKAL80ETC concert']
-
   updateQuality() {
     this.items.forEach((item) => {
       this.updateItemQuality(item)
@@ -70,41 +68,42 @@ export class GildedRose {
   }
 
   private updateItemQuality(item: Item) {
-    this.handleSulfuras(item);
-    this.handleNormalItems(item);
-    this.handleAgedBrie(item);
-    this.handleBackstage(item);
+    switch (item.name) {
+      case 'Backstage passes to a TAFKAL80ETC concert':
+        this.handleBackstage(item);
+        break;
+      case 'Aged Brie':
+        this.handleAgedBrie(item);
+        break;
+      case 'Sulfuras, Hand of Ragnaros':
+        this.handleSulfuras(item);
+        break;
+      default:
+        this.handleNormalItems(item);
+    }
   }
 
   private handleBackstage(item: Item) {
-    if (item.name === 'Backstage passes to a TAFKAL80ETC concert') {
-      const newItem = new TicketItem(item.name, item.sellIn, item.quality).handle();
-      item.sellIn = newItem.sellIn;
-      item.quality = newItem.quality;
-    }
+    const newItem = new TicketItem(item.name, item.sellIn, item.quality).handle();
+    item.sellIn = newItem.sellIn;
+    item.quality = newItem.quality;
   }
 
   private handleAgedBrie(item: Item) {
-    if (item.name === 'Aged Brie') {
-      const newItem = new BrieItem(item.name, item.sellIn, item.quality).handle();
-      item.sellIn = newItem.sellIn;
-      item.quality = newItem.quality;
-    }
+    const newItem = new BrieItem(item.name, item.sellIn, item.quality).handle();
+    item.sellIn = newItem.sellIn;
+    item.quality = newItem.quality;
   }
 
   private handleNormalItems(item: Item) {
-    if (!this.SPECIAL_ITEMS.includes(item.name)) {
-      const newItem = new NormalItem(item.name, item.sellIn, item.quality).handle();
-      item.sellIn = newItem.sellIn;
-      item.quality = newItem.quality;
-    }
+    const newItem = new NormalItem(item.name, item.sellIn, item.quality).handle();
+    item.sellIn = newItem.sellIn;
+    item.quality = newItem.quality;
   }
 
   private handleSulfuras(item: Item) {
-    if (item.name === 'Sulfuras, Hand of Ragnaros') {
-      const newItem = new SulfurasItem(item.name, item.sellIn, item.quality).handle();
-      item.sellIn = newItem.sellIn;
-      item.quality = newItem.quality;
-    }
+    const newItem = new SulfurasItem(item.name, item.sellIn, item.quality).handle();
+    item.sellIn = newItem.sellIn;
+    item.quality = newItem.quality;
   }
 }
