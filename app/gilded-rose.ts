@@ -34,6 +34,10 @@ export class GildedRose {
     this.handleSulfuras(i);
     this.handleNormalItems(i);
     this.handleAgedBrie(i);
+    this.handleBackstageTickets(i);
+  }
+
+  private handleBackstageTickets(i: number) {
     if (this.items[i].name === "Backstage passes to a TAFKAL80ETC concert") {
       let qualityChange = 0;
       if (this.items[i].sellIn > 10) {
