@@ -16,4 +16,12 @@ describe("Gilded Rose", () => {
       expect(items[0].quality).toBe(9);
     });
   });
+
+  describe("quality for normal item cannot be under 0", () => {
+    it("quality should be equal 0", () => {
+      const gildedRose = new GildedRose([new Item("example item", 1, 0)]);
+      const items = gildedRose.updateQuality();
+      expect(items[0].quality).toBe(0);
+    });
+  });
 });
