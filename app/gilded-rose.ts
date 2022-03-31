@@ -10,25 +10,48 @@ export class Item {
   }
 }
 
-class NormalItem extends Item {
-  tick() {
-    this.quality -= this.sellIn <= 0 ? 2 : 1;
-    if (this.quality < 0) this.quality = 0;
+//abstrakcyjna klasa to taka na której nie można wywołać new - jest tylko po to, żeby można było po niej tylko dziedziczyć
+
+abstract class OurItem extends Item {
+  abstract changeQuality(); //to oznacza, że instancja musi mieć jakieś ChangeQuality, ale nie wiadomo jakie
+  protected decreaseSellIn() {
     this.sellIn -= 1;
+  }
+  protected handleOutOfRangeQuality() {
+    if (this.quality < 0) this.quality = 0;
+    if (this.quality > 50) this.quality = 50;
   }
 }
 
-class AgedBrie extends Item {
+class NormalItem extends OurItem {
   tick() {
+    this.changeQuality();
+    this.handleOutOfRangeQuality();
+    this.decreaseSellIn();
+  }
+  changeQuality() {
     this.quality -= this.sellIn <= 0 ? 2 : 1;
-    if (this.quality < 0) this.quality = 0;
-    this.sellIn -= 1;
   }
 }
 
-class BackstagePasses extends Item{
-
+class AgedBrie extends OurItem {
   tick() {
+    this.changeQuality();
+    this.handleOutOfRangeQuality();
+    this.decreaseSellIn();
+  }
+  changeQuality() {
+    this.quality += this.sellIn <= 0 ? 2 : 1;
+  }
+}
+
+class BackstagePasses extends OurItem {
+  tick() {
+    this.changeQuality();
+    this.decreaseSellIn();
+  }
+
+  changeQuality() {
     let qualityChange = 0;
     let x = this.sellIn;
     if (this.sellIn > 10) {
@@ -43,7 +66,6 @@ class BackstagePasses extends Item{
 
     this.quality += qualityChange;
     if (this.quality > 50) this.quality = 50;
-    this.sellIn -= 1;
   }
 }
 
