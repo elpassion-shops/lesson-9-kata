@@ -62,4 +62,30 @@ describe("Gilded Rose", () => {
       expect(gildedRose.items[0].quality).toBe(6);
     });
   });
+
+  describe("GR for Backstage passes", () => {
+    it("should increase the quality of Backstage passes by 2 in days 6-10 before deadline for sale", () => {
+      const gildedRose = new GildedRose([
+        new Item("Backstage passes to a TAFKAL80ETC concert", 10, 10),
+      ]);
+      gildedRose.updateQuality();
+      expect(gildedRose.items[0].quality).toBe(12);
+    });
+
+    it("should increase the quality of Backstage passes by 3 in the last 5 days before deadline for sale", () => {
+      const gildedRose = new GildedRose([
+        new Item("Backstage passes to a TAFKAL80ETC concert", 3, 10),
+      ]);
+      gildedRose.updateQuality();
+      expect(gildedRose.items[0].quality).toBe(13);
+    });
+
+    it("should decrease the quality of Backstage passes to 0 after the deadline for sale", () => {
+      const gildedRose = new GildedRose([
+        new Item("Backstage passes to a TAFKAL80ETC concert", 0, 10),
+      ]);
+      gildedRose.updateQuality();
+      expect(gildedRose.items[0].quality).toBe(0);
+    });
+  });
 });
