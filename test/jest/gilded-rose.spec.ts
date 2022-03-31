@@ -42,4 +42,24 @@ describe("Gilded Rose", () => {
       expect(gildedRose.items[0].sellIn).toBe(10);
     });
   });
+
+  describe("GR for Aged Brie", () => {
+    let gildedRose;
+
+    beforeEach(() => {
+      gildedRose = new GildedRose([new Item("Aged Brie", 1, 1)]);
+    });
+
+    it("should increase the quality of Aged Brie with time", () => {
+      gildedRose.updateQuality();
+      expect(gildedRose.items[0].quality).toBe(2);
+    });
+
+    it("should increase the quality of Aged Brie after the deadline for sale x2", () => {
+      gildedRose.updateQuality();
+      gildedRose.updateQuality();
+      gildedRose.updateQuality();
+      expect(gildedRose.items[0].quality).toBe(6);
+    });
+  });
 });
