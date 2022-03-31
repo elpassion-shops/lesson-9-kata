@@ -10,32 +10,45 @@ export class Item {
   }
 }
 
-export class NormalItem extends Item {
-  handle() {
-    this.quality -= this.sellIn <= 0 ? 2 : 1;
+export abstract class OurItem extends Item {
+  abstract changeQuality();
+
+  protected handleOutOfRangeQuality() {
     if (this.quality < 0) this.quality = 0
-    this.sellIn -= 1;
-    return this;
-  }
-}
-
-export class SulfurasItem extends Item {
-  handle() {
-    return this;
-  }
-}
-
-export class BrieItem extends Item {
-  handle() {
-    this.quality += this.sellIn <= 0 ? 2 : 1;
     if (this.quality > 50) this.quality = 50
+  }
+
+  protected decreaseSellIn() {
     this.sellIn -= 1;
+  }
+
+  handle() {
+    this.changeQuality();
+    this.handleOutOfRangeQuality();
+    this.decreaseSellIn();
     return this;
   }
 }
 
-export class TicketItem extends Item {
-  handle() {
+export class NormalItem extends OurItem {
+  changeQuality() {
+    this.quality -= this.sellIn <= 0 ? 2 : 1;
+  }
+}
+
+export class SulfurasItem extends OurItem {
+  changeQuality() {
+  }
+}
+
+export class BrieItem extends OurItem {
+  changeQuality() {
+    this.quality += this.sellIn <= 0 ? 2 : 1;
+  }
+}
+
+export class TicketItem extends OurItem {
+  changeQuality() {
     let qualityChange = 0;
     if (this.sellIn > 10) {
       qualityChange = 1;
@@ -47,9 +60,6 @@ export class TicketItem extends Item {
       this.quality = 0;
     }
     this.quality += qualityChange;
-    if (this.quality > 50) this.quality = 50;
-    this.sellIn -= 1;
-    return this;
   }
 }
 
@@ -60,24 +70,20 @@ export class GildedRose {
     this.items = items;
   }
 
+  private static getItemClass(itemName: string) {
+    return {
+      'Backstage passes to a TAFKAL80ETC concert': TicketItem,
+      'Aged Brie': BrieItem,
+      'Sulfuras, Hand of Ragnaros': SulfurasItem,
+    }[itemName] || NormalItem
+  }
+
   updateQuality() {
     this.items = this.items.map((item) => {
-      return this.updateItemQuality(item)
+      const Item = GildedRose.getItemClass(item.name);
+      return new Item(item.name, item.sellIn, item.quality).handle();
     });
 
     return this.items;
-  }
-
-  private updateItemQuality(item: Item): Item {
-    switch (item.name) {
-      case 'Backstage passes to a TAFKAL80ETC concert':
-        return new TicketItem(item.name, item.sellIn, item.quality).handle()
-      case 'Aged Brie':
-        return new BrieItem(item.name, item.sellIn, item.quality).handle()
-      case 'Sulfuras, Hand of Ragnaros':
-        return new SulfurasItem(item.name, item.sellIn, item.quality).handle();
-      default:
-        return new NormalItem(item.name, item.sellIn, item.quality).handle();
-    }
   }
 }
