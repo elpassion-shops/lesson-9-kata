@@ -22,4 +22,24 @@ describe("Gilded Rose", () => {
       expect(gildedRose.items[0].quality).toBe(8);
     });
   });
+
+  describe("GR for Sulfuras", () => {
+    let gildedRose;
+
+    beforeEach(() => {
+      gildedRose = new GildedRose([
+        new Item("Sulfuras, Hand of Ragnaros", 10, 80),
+      ]);
+    });
+
+    it("should not decrease the quality of Sulfuras", () => {
+      gildedRose.updateQuality();
+      expect(gildedRose.items[0].quality).toBe(80);
+    });
+
+    it("should not decrease the SellIn deadline for Sulfuras", () => {
+      gildedRose.updateQuality();
+      expect(gildedRose.items[0].sellIn).toBe(10);
+    });
+  });
 });
