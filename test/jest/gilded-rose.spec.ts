@@ -7,6 +7,12 @@ describe("Gilded Rose", () => {
       gildedRose.updateQuality();
       expect(gildedRose.items[0].quality).toBe(0);
     });
+
+    it("should not allow the quality of any items to increase beyond 50", () => {
+      const gildedRose = new GildedRose([new Item("Aged Brie", 10, 50)]);
+      gildedRose.updateQuality();
+      expect(gildedRose.items[0].quality).toBe(50);
+    });
   });
 
   describe("GR for regular items", () => {
