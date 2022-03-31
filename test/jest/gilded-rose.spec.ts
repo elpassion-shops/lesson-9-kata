@@ -59,4 +59,10 @@ describe('Gilded Rose', () => {
     expect(items[0].sellIn).toBe(4);
     expect(items[0].quality).toBe(13);
   });
+  it("should 'Conjured' quality decrease twice as fast", () => {
+    const gildedRose = new GildedRose([new Item('Conjured', 1, 10)]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].sellIn).toBe(0);
+    expect(items[0].quality).toBe(8);
+  });
 });
