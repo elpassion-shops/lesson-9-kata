@@ -10,6 +10,49 @@ export class Item {
   }
 }
 
+export class NormalItem extends Item {
+  handle() {
+    this.quality -= this.sellIn <= 0 ? 2 : 1;
+    if (this.quality < 0) this.quality = 0
+    this.sellIn -= 1;
+    return this;
+  }
+}
+
+export class SulfurasItem extends Item {
+  handle() {
+    return this;
+  }
+}
+
+export class BrieItem extends Item {
+  handle() {
+    this.quality += this.sellIn <= 0 ? 2 : 1;
+    if (this.quality > 50) this.quality = 50
+    this.sellIn -= 1;
+    return this;
+  }
+}
+
+export class TicketItem extends Item {
+  handle() {
+    let qualityChange = 0;
+    if (this.sellIn > 10) {
+      qualityChange = 1;
+    } else if (this.sellIn > 5) {
+      qualityChange = 2;
+    } else if (this.sellIn > 0) {
+      qualityChange = 3;
+    } else {
+      this.quality = 0;
+    }
+    this.quality += qualityChange;
+    if (this.quality > 50) this.quality = 50;
+    this.sellIn -= 1;
+    return this;
+  }
+}
+
 export class GildedRose {
   items: Array<Item>;
 
@@ -35,39 +78,33 @@ export class GildedRose {
 
   private handleBackstage(item: Item) {
     if (item.name === 'Backstage passes to a TAFKAL80ETC concert') {
-      let qualityChange = 0;
-      if (item.sellIn > 10) {
-        qualityChange = 1;
-      } else if (item.sellIn > 5) {
-        qualityChange = 2;
-      } else if (item.sellIn > 0) {
-        qualityChange = 3;
-      } else {
-        item.quality = 0;
-      }
-      item.quality += qualityChange;
-      if (item.quality > 50) item.quality = 50;
-      item.sellIn -= 1;
+      const newItem = new TicketItem(item.name, item.sellIn, item.quality).handle();
+      item.sellIn = newItem.sellIn;
+      item.quality = newItem.quality;
     }
   }
 
   private handleAgedBrie(item: Item) {
     if (item.name === 'Aged Brie') {
-      item.quality += item.sellIn <= 0 ? 2 : 1;
-      if (item.quality > 50) item.quality = 50
-      item.sellIn -= 1;
+      const newItem = new BrieItem(item.name, item.sellIn, item.quality).handle();
+      item.sellIn = newItem.sellIn;
+      item.quality = newItem.quality;
     }
   }
 
   private handleNormalItems(item: Item) {
     if (!this.SPECIAL_ITEMS.includes(item.name)) {
-      item.quality -= item.sellIn <= 0 ? 2 : 1;
-      if (item.quality < 0) item.quality = 0
-      item.sellIn -= 1;
+      const newItem = new NormalItem(item.name, item.sellIn, item.quality).handle();
+      item.sellIn = newItem.sellIn;
+      item.quality = newItem.quality;
     }
   }
 
   private handleSulfuras(item: Item) {
-    if (item.name === 'Sulfuras, Hand of Ragnaros') {}
+    if (item.name === 'Sulfuras, Hand of Ragnaros') {
+      const newItem = new SulfurasItem(item.name, item.sellIn, item.quality).handle();
+      item.sellIn = newItem.sellIn;
+      item.quality = newItem.quality;
+    }
   }
 }
