@@ -18,6 +18,18 @@ describe("Gilded Rose", () => {
   });
 
   describe("for aged brie", () => {
+    describe("should increase quality day by day by one", () => {
+      it("before sell day it should increase by one", () => {
+        const gildedRose1 = new GildedRose([new Item(ItemsEnum.BRIE, 10, 45)]);
+        gildedRose1.updateQuality();
+        expect(gildedRose1.items[0].quality).toBe(46);
+      });
+      it("after sell day it should increase twice", () => {
+        const gildedRose1 = new GildedRose([new Item(ItemsEnum.BRIE, -2, 45)]);
+        gildedRose1.updateQuality();
+        expect(gildedRose1.items[0].quality).toBe(47);
+      });
+    });
     it("should not increase quality above 50", () => {
       const gildedRose1 = new GildedRose([new Item(ItemsEnum.BRIE, 10, 50)]);
       gildedRose1.updateQuality();
