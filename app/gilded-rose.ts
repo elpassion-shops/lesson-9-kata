@@ -36,8 +36,15 @@ export class NormalItem extends OurItem {
   }
 }
 
-export class SulfurasItem extends OurItem {
+export class SulfurasItem extends Item {
+  handle() {
+    return this;
+  }
+}
+
+export class ConjuredItem extends OurItem {
   changeQuality() {
+    this.quality -= this.sellIn <= 0 ? 4 : 2;
   }
 }
 
@@ -75,6 +82,7 @@ export class GildedRose {
       'Backstage passes to a TAFKAL80ETC concert': TicketItem,
       'Aged Brie': BrieItem,
       'Sulfuras, Hand of Ragnaros': SulfurasItem,
+      'Conjured': ConjuredItem,
     }[itemName] || NormalItem
   }
 

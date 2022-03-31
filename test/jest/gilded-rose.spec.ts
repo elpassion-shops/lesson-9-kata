@@ -1,4 +1,4 @@
-import { Item, GildedRose } from "@/gilded-rose";
+import {Item, GildedRose} from "@/gilded-rose";
 
 describe("Gilded Rose", () => {
   describe("GR for all items", () => {
@@ -92,6 +92,16 @@ describe("Gilded Rose", () => {
       ]);
       gildedRose.updateQuality();
       expect(gildedRose.items[0].quality).toBe(0);
+    });
+  });
+
+  describe("Conjured", () => {
+    it("should degrade in Quality twice as fast as normal items", () => {
+      const gildedRose = new GildedRose([new Item("Conjured", 10, 30)]);
+      gildedRose.updateQuality();
+      gildedRose.updateQuality();
+      gildedRose.updateQuality();
+      expect(gildedRose.items[0].quality).toBe(24);
     });
   });
 });
