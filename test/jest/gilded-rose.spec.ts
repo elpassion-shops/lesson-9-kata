@@ -25,7 +25,7 @@ describe("Gilded Rose", () => {
     });
   });
 
-  describe("quality for normal item cannot be under 0", () => {
+  describe("quality for additional items cannot be under 0", () => {
     it("quality should be equal 0", () => {
       const gildedRose = new GildedRose([new Item("example item", 1, 0)]);
       const items = gildedRose.updateQuality();
