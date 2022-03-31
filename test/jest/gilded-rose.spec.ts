@@ -11,4 +11,10 @@ describe('Gilded Rose', () => {
     const items = gildedRose.updateQuality();
     expect(items[0].quality).toBe(0);
   });
+  it("should decrease both value for normal item each tick", () => {
+    const gildedRose = new GildedRose([new Item('normal item', 1, 10)]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].sellIn).toBe(0);
+    expect(items[0].quality).toBe(9);
+  });
 });
