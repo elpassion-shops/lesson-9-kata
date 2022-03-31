@@ -31,6 +31,12 @@ describe("Gilded Rose", () => {
       const items = gildedRose.updateQuality();
       expect(items[0].quality).toBe(0);
     });
+
+    it("Backstage quality should be equal 0", () => {
+      const gildedRose = new GildedRose([new Item("Backstage", 1, 0)]);
+      const items = gildedRose.updateQuality();
+      expect(items[0].quality).toBe(0);
+    });
   });
 
   describe("Backstage passes quality should increase after day", () => {
@@ -80,6 +86,14 @@ describe("Gilded Rose", () => {
       ]);
       const items = gildedRose.updateQuality();
       expect(items[0].quality).toBe(28);
+    });
+  });
+
+  describe("Aged Brie quality should increases by 1 after day", () => {
+    it("quality should be 26", () => {
+      const gildedRose = new GildedRose([new Item("Aged Brie", 5, 25)]);
+      const items = gildedRose.updateQuality();
+      expect(items[0].quality).toBe(26);
     });
   });
 
