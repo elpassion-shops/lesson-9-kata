@@ -7,7 +7,7 @@
     "compile": "tsc",
     "pretest": "rimraf app/**/*.js test/**/*.js",
     "test": "jest",
-    "test:watch": "jest --watchAll",
+    "test:watch": "jest --watchAll"
   },
   "license": "MIT",
   "private": true,
