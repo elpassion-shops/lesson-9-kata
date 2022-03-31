@@ -32,6 +32,27 @@ class AgedBrie {
   }
 }
 
+class BackstagePasses {
+  constructor(private sellIn: number, private quality: number) {}
+
+  tick() {
+    let qualityChange = 0;
+    if (this.sellIn > 10) {
+      qualityChange = 1;
+    } else if (this.sellIn > 5) {
+      qualityChange = 2;
+    } else if (this.sellIn > 0) {
+      qualityChange = 3;
+    } else {
+      this.quality = 0;
+    }
+
+    this.quality += qualityChange;
+    if (this.quality > 50) this.quality = 50;
+    this.sellIn -= 1;
+  }
+}
+
 export class GildedRose {
   items: Array<Item>;
 
@@ -90,6 +111,7 @@ export class GildedRose {
 
       item.quality += qualityChange;
       if (item.quality > 50) item.quality = 50;
+      item.sellIn -= 1;
     }
   }
 }
