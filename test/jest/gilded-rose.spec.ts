@@ -125,23 +125,25 @@ describe("Gilded Rose", () => {
     });
   });
 
-  describe("quality for Sulfuras should never change", () => {
-    it("Sulfuras, Hand of Ragnaros quality should be equal 20", () => {
-      const gildedRose = new GildedRose([
-        new Item("Sulfuras, Hand of Ragnaros", 1, 20),
-      ]);
-      const items = gildedRose.updateQuality();
-      expect(items[0].quality).toBe(20);
+  describe("tests for Sulfuras", () => {
+    describe("quality for Sulfuras should never change", () => {
+      it("Sulfuras, Hand of Ragnaros quality should be equal 20", () => {
+        const gildedRose = new GildedRose([
+          new Item("Sulfuras, Hand of Ragnaros", 1, 20),
+        ]);
+        const items = gildedRose.updateQuality();
+        expect(items[0].quality).toBe(20);
+      });
     });
-  });
 
-  describe("Sulfuras” quality is 80", () => {
-    it("quality should be 80", () => {
-      const gildedRose = new GildedRose([
-        new Item("Sulfuras, Hand of Ragnaros", 0, 80),
-      ]);
-      const items = gildedRose.updateQuality();
-      expect(items[0].quality).toBe(80);
+    describe("Sulfuras” quality is 80", () => {
+      it("quality should be 80", () => {
+        const gildedRose = new GildedRose([
+          new Item("Sulfuras, Hand of Ragnaros", 0, 80),
+        ]);
+        const items = gildedRose.updateQuality();
+        expect(items[0].quality).toBe(80);
+      });
     });
   });
 });
