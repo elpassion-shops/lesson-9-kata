@@ -4,7 +4,7 @@ describe("Gilded Rose", () => {
   it("should decrese quality for normal item each tick", () => {
     const gildedRose = new GildedRose([new Item("example item", 1, 10)]);
     gildedRose.updateQuality();
-    expect(gildedRose.items[0].sellIn).toBe(0);
+    expect(gildedRose.items[0].quality).toBe(9);
   });
   it("quality should not decrease under 0", () => {
     const gildedRose = new GildedRose([new Item("example item", 1, 1)]);
@@ -39,6 +39,13 @@ describe("Gilded Rose", () => {
     expect(gildedRose.items[0].sellIn).toBe(10);
   });
   describe("“Backstage passes”, like aged brie, increases in Quality as its SellIn value approaches", () => {
+    it("Quality increases by 1 if sellIn is greater then 10", () => {
+      const gildedRose = new GildedRose([
+        new Item("Backstage passes to a TAFKAL80ETC concert", 12, 20),
+      ]);
+      gildedRose.updateQuality();
+      expect(gildedRose.items[0].quality).toBe(21);
+    });
     it("Quality increases by 2 when there are 10 days or less", () => {
       const gildedRose = new GildedRose([
         new Item("Backstage passes to a TAFKAL80ETC concert", 10, 20),
