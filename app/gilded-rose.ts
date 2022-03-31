@@ -28,11 +28,7 @@ export class GildedRose {
 
   private updateItemQuality(i: number) {
     this.handleSulfuras(i);
-    if (!this.SPECIAL_ITEMS.includes(this.items[i].name)) {
-      this.items[i].quality -= this.items[i].sellIn <= 0 ? 2 : 1;
-      if (this.items[i].quality < 0) this.items[i].quality = 0
-      this.items[i].sellIn -= 1;
-    }
+    this.handleNormalItems(i);
     if (this.items[i].name === 'Aged Brie') {
       this.items[i].quality += this.items[i].sellIn <= 0 ? 2 : 1;
       if (this.items[i].quality > 50) this.items[i].quality = 50
@@ -51,6 +47,14 @@ export class GildedRose {
       }
       this.items[i].quality += qualityChange;
       if (this.items[i].quality > 50) this.items[i].quality = 50;
+      this.items[i].sellIn -= 1;
+    }
+  }
+
+  private handleNormalItems(i: number) {
+    if (!this.SPECIAL_ITEMS.includes(this.items[i].name)) {
+      this.items[i].quality -= this.items[i].sellIn <= 0 ? 2 : 1;
+      if (this.items[i].quality < 0) this.items[i].quality = 0
       this.items[i].sellIn -= 1;
     }
   }
