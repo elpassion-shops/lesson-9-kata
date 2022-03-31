@@ -60,4 +60,12 @@ describe('Gilded Rose', () => {
     gildedRose.updateQuality();
     expect(gildedRose.items[0].quality).toBe(13);
   })
+
+  it('“Backstage passes to a TAFKAL80ETC concert” Quality drops to 0 after the concert', () => {
+    const gildedRose = new GildedRose([new Item('Backstage passes to a TAFKAL80ETC concert', 0, 10)]);
+    gildedRose.updateQuality();
+    expect(gildedRose.items[0].quality).toBe(0);
+  })
+
+  
 });
