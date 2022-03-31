@@ -38,4 +38,13 @@ describe("Gilded Rose", () => {
     expect(gildedRose.items[0].quality).toBe(80);
     expect(gildedRose.items[0].sellIn).toBe(10);
   });
+  describe("“Backstage passes”, like aged brie, increases in Quality as its SellIn value approaches", () => {
+    it("Quality increases by 2 when there are 10 days or less", () => {
+      const gildedRose = new GildedRose([
+        new Item("Backstage passes to a TAFKAL80ETC concert", 10, 20),
+      ]);
+      gildedRose.updateQuality();
+      expect(gildedRose.items[0].quality).toBe(22);
+    });
+  });
 });
