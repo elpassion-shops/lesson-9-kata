@@ -1,74 +1,9 @@
-export class Item {
-  name: string;
-  sellIn: number;
-  quality: number;
-
-  constructor(name, sellIn, quality) {
-    this.name = name;
-    this.sellIn = sellIn;
-    this.quality = quality;
-  }
-}
-
-export abstract class OurItem extends Item {
-  abstract changeQuality();
-
-  protected handleOutOfRangeQuality() {
-    if (this.quality < 0) this.quality = 0
-    if (this.quality > 50) this.quality = 50
-  }
-
-  protected decreaseSellIn() {
-    this.sellIn -= 1;
-  }
-
-  handle() {
-    this.changeQuality();
-    this.handleOutOfRangeQuality();
-    this.decreaseSellIn();
-    return this;
-  }
-}
-
-export class NormalItem extends OurItem {
-  changeQuality() {
-    this.quality -= this.sellIn <= 0 ? 2 : 1;
-  }
-}
-
-export class SulfurasItem extends Item {
-  handle() {
-    return this;
-  }
-}
-
-export class ConjuredItem extends OurItem {
-  changeQuality() {
-    this.quality -= this.sellIn <= 0 ? 4 : 2;
-  }
-}
-
-export class BrieItem extends OurItem {
-  changeQuality() {
-    this.quality += this.sellIn <= 0 ? 2 : 1;
-  }
-}
-
-export class TicketItem extends OurItem {
-  changeQuality() {
-    let qualityChange = 0;
-    if (this.sellIn > 10) {
-      qualityChange = 1;
-    } else if (this.sellIn > 5) {
-      qualityChange = 2;
-    } else if (this.sellIn > 0) {
-      qualityChange = 3;
-    } else {
-      this.quality = 0;
-    }
-    this.quality += qualityChange;
-  }
-}
+import {SulfurasItem} from "@/sulfuras-item";
+import {ConjuredItem} from "@/conjured-item";
+import {BrieItem} from "@/brie-item";
+import {TicketItem} from "@/ticket-item";
+import {NormalItem} from "@/normal-item";
+import {Item} from "@/item";
 
 export class GildedRose {
   items: Array<Item>;
