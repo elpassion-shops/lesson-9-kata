@@ -52,4 +52,14 @@ describe("Gilded Rose", () => {
       expect(items[0].quality).toBe(50);
     });
   });
+
+  describe("Backstage passes quality should be 0 after concert", () => {
+    it("quality should be equal 26", () => {
+      const gildedRose = new GildedRose([
+        new Item("Backstage passes to a TAFKAL80ETC concert", 0, 50),
+      ]);
+      const items = gildedRose.updateQuality();
+      expect(items[0].quality).toBe(0);
+    });
+  });
 });
