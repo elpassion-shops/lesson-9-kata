@@ -72,4 +72,22 @@ describe("Gilded Rose", () => {
       expect(items[0].quality).toBe(27);
     });
   });
+
+  describe("Backstage passes quality should increases by 3 when there are 5 days or less", () => {
+    it("quality should be 28", () => {
+      const gildedRose = new GildedRose([
+        new Item("Backstage passes to a TAFKAL80ETC concert", 5, 25),
+      ]);
+      const items = gildedRose.updateQuality();
+      expect(items[0].quality).toBe(28);
+    });
+  });
+
+  describe("Aged Brie quality should increases by 1 after day", () => {
+    it("quality should be 26", () => {
+      const gildedRose = new GildedRose([new Item("Aged Brie", 5, 25)]);
+      const items = gildedRose.updateQuality();
+      expect(items[0].quality).toBe(26);
+    });
+  });
 });
