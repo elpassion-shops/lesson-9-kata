@@ -6,4 +6,9 @@ describe('Gilded Rose', () => {
     const items = gildedRose.updateQuality();
     expect(items[0].sellIn).toBe(0);
   });
+  it("should quality never be negative", () => {
+    const gildedRose = new GildedRose([new Item('example item', 1, 0)]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].quality).toBe(0);
+  });
 });
