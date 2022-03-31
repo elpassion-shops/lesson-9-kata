@@ -1,5 +1,3 @@
-import { throws } from "assert";
-
 export class Item {
   name: string;
   sellIn: number;
@@ -12,9 +10,7 @@ export class Item {
   }
 }
 
-class NormalItem {
-  constructor(private sellIn: number, private quality: number) {}
-
+class NormalItem extends Item {
   tick() {
     this.quality -= this.sellIn <= 0 ? 2 : 1;
     if (this.quality < 0) this.quality = 0;
@@ -22,9 +18,7 @@ class NormalItem {
   }
 }
 
-class AgedBrie {
-  constructor(private sellIn: number, private quality: number) {}
-
+class AgedBrie extends Item {
   tick() {
     this.quality -= this.sellIn <= 0 ? 2 : 1;
     if (this.quality < 0) this.quality = 0;
@@ -32,11 +26,11 @@ class AgedBrie {
   }
 }
 
-class BackstagePasses {
-  constructor(private sellIn: number, private quality: number) {}
+class BackstagePasses extends Item{
 
   tick() {
     let qualityChange = 0;
+    let x = this.sellIn;
     if (this.sellIn > 10) {
       qualityChange = 1;
     } else if (this.sellIn > 5) {
@@ -67,8 +61,7 @@ export class GildedRose {
   ];
 
   updateQuality() {
-    this.items.forEach((_, i) => {
-      let item = this.items[i];
+    this.items.forEach((item) => {
       this.updateItemQuality(item);
     });
     return this.items;
@@ -84,7 +77,7 @@ export class GildedRose {
     if (!this.SPECIAL_ITEMS.includes(item.name)) {
       item.quality -= item.sellIn <= 0 ? 2 : 1;
       if (item.quality < 0) item.quality = 0;
-      item.sellIn -= 1;
+      this.decreaseSellIn(item);
     }
   }
 
@@ -92,7 +85,7 @@ export class GildedRose {
     if (item.name === "Aged Brie") {
       item.quality += item.sellIn <= 0 ? 2 : 1;
       if (item.quality > 50) item.quality = 50;
-      item.sellIn -= 1;
+      this.decreaseSellIn(item);
     }
   }
 
@@ -111,8 +104,12 @@ export class GildedRose {
 
       item.quality += qualityChange;
       if (item.quality > 50) item.quality = 50;
-      item.sellIn -= 1;
+      this.decreaseSellIn(item);
     }
+  }
+
+  private decreaseSellIn(item: Item) {
+    item.sellIn -= 1;
   }
 }
 
@@ -121,3 +118,22 @@ export class GildedRose {
 //później returnowaliśmy w początkowych częściach kodu, żeby zobaczyć co przechodzi, a conie i implementowaliśmy kod dla poszczególnych przypadków
 //negujemy scenariusze - zanim usuniemy statry kod, to piszemy nowy
 //później wyekstraktowaliśmy konkretne metody prywatne dla klasy Gilded Rose, żeby metoda updateItemQuality była czytelniejsza
+//jeśli coś ma taki sam prefix/sufix, to pewnie można wyekstraktować obiekt
+//jak tworzymy taki obiekt, to on może extends cośtam
+
+//lepsza jest duplikacja niż zła abstrakcja!
+//abstrakcja powinny być projektowana z góry do dołu, a nie od dołu do góry
+
+//czemu małe obiekty są lepsze od małych metod?
+//chodzi o podział odpowiedzialności i ekstendowanie małych metod
+//np. mamy funkcję
+// formatDate(format, date) {
+// moment(date).format(format) //moment to taka biblioteka
+// }
+
+//i teraz np. jeśli mamy <div>{formatDate("MM-DD", "jakaśdata")}</div>
+//i teraz np. jak mamy podstronę dla roku 1991, to bez sensu jest robić dla każdej daty datę z rokiem do wyświetlenia
+//czyli coś może mieć sens w kontekście jednego kontekstu, a innego już nie
+//może lepiej wystawić obiekt, który wystawi tylko metody, które nie dadzą tego 1991
+
+//inny przykład, hajsu, może lepszy
