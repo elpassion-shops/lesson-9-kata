@@ -1,3 +1,5 @@
+import { timeStamp } from "console";
+
 export class Item {
   name: string;
   sellIn: number;
@@ -17,8 +19,22 @@ export class GildedRose {
     this.items = items;
   }
 
+  private SPECIAL_ITEMS = [
+    "Sulfuras, Hand of Ragnaros",
+    "Aged Brie",
+    "Backstage passes to a TAFKAL80ETC concert",
+    "Conjured",
+  ];
+
   updateQuality() {
     for (let i = 0; i < this.items.length; i++) {
+      if (this.items[i].name == "Sulfuras, Hand of Ragnaros") continue;
+      if (!this.SPECIAL_ITEMS.includes(this.items[i].name)) {
+        this.items[i].quality -= this.items[i].sellIn <= 0 ? 2 : 1;
+        if (this.items[i].quality < 0) this.items[i].quality = 0;
+        this.items[i].sellIn -= 1;
+        continue;
+      }
       if (
         this.items[i].name != "Aged Brie" &&
         this.items[i].name != "Backstage passes to a TAFKAL80ETC concert"
