@@ -61,49 +61,23 @@ export class GildedRose {
   }
 
   updateQuality() {
-    this.items.forEach((item) => {
-      this.updateItemQuality(item)
+    this.items = this.items.map((item) => {
+      return this.updateItemQuality(item)
     });
+
     return this.items;
   }
 
-  private updateItemQuality(item: Item) {
+  private updateItemQuality(item: Item): Item {
     switch (item.name) {
       case 'Backstage passes to a TAFKAL80ETC concert':
-        this.handleBackstage(item);
-        break;
+        return new TicketItem(item.name, item.sellIn, item.quality).handle()
       case 'Aged Brie':
-        this.handleAgedBrie(item);
-        break;
+        return new BrieItem(item.name, item.sellIn, item.quality).handle()
       case 'Sulfuras, Hand of Ragnaros':
-        this.handleSulfuras(item);
-        break;
+        return new SulfurasItem(item.name, item.sellIn, item.quality).handle();
       default:
-        this.handleNormalItems(item);
+        return new NormalItem(item.name, item.sellIn, item.quality).handle();
     }
-  }
-
-  private handleBackstage(item: Item) {
-    const newItem = new TicketItem(item.name, item.sellIn, item.quality).handle();
-    item.sellIn = newItem.sellIn;
-    item.quality = newItem.quality;
-  }
-
-  private handleAgedBrie(item: Item) {
-    const newItem = new BrieItem(item.name, item.sellIn, item.quality).handle();
-    item.sellIn = newItem.sellIn;
-    item.quality = newItem.quality;
-  }
-
-  private handleNormalItems(item: Item) {
-    const newItem = new NormalItem(item.name, item.sellIn, item.quality).handle();
-    item.sellIn = newItem.sellIn;
-    item.quality = newItem.quality;
-  }
-
-  private handleSulfuras(item: Item) {
-    const newItem = new SulfurasItem(item.name, item.sellIn, item.quality).handle();
-    item.sellIn = newItem.sellIn;
-    item.quality = newItem.quality;
   }
 }
