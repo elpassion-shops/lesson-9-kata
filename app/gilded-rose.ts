@@ -35,6 +35,12 @@ export class GildedRose {
         this.items[i].sellIn -= 1;
         continue;
       }
+      if (this.items[i].name == "Aged Brie") {
+        this.items[i].quality += this.items[i].sellIn <= 0 ? 2 : 1;
+        if (this.items[i].quality > 50) this.items[i].quality = 50;
+        this.items[i].sellIn -= 1;
+        continue;
+      }
       if (
         this.items[i].name != "Aged Brie" &&
         this.items[i].name != "Backstage passes to a TAFKAL80ETC concert"
