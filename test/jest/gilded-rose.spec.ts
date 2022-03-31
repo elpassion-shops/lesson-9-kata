@@ -1,6 +1,7 @@
 import { Item, GildedRose } from "@/gilded-rose";
 
 describe("Gilded Rose", () => {
+  describe("normal item", () => {
     it("should decrease quality each day", () => {
       const gildedRose = new GildedRose([new Item("example item", 1, 10)]);
       gildedRose.updateQuality();
@@ -49,14 +50,14 @@ describe("Gilded Rose", () => {
           gildedRose.updateQuality();
           expect(gildedRose.items[0].quality).toBe(37);
         }),
-        it("shouldn't increase quality twice for more than 50", () => {
+        it("shouldn't increase quality for more than 50", () => {
           const gildedRose = new GildedRose([new Item("Aged Brie", -1, 50)]);
           gildedRose.updateQuality();
           expect(gildedRose.items[0].quality).toBe(50);
         });
     });
   describe("Backstage Passes", () => {
-    it("shouldn't increase quality twice for more than 50", () => {
+    it("shouldn't increase quality for more than 50", () => {
       const gildedRose = new GildedRose([
         new Item("Backstage passes to a TAFKAL80ETC concert", 3, 50),
       ]);
@@ -77,7 +78,6 @@ describe("Gilded Rose", () => {
         gildedRose.updateQuality();
         expect(gildedRose.items[0].quality).toBe(37);
       }),
-
       it("should increase quality three times when there are less than 5 days or more than 0 days to the concert", () => {
         const gildedRose = new GildedRose([
           new Item("Backstage passes to a TAFKAL80ETC concert", 3, 35),
@@ -100,3 +100,4 @@ describe("Gilded Rose", () => {
         expect(gildedRose.items[0].quality).toBe(33);
       });
     });
+});
