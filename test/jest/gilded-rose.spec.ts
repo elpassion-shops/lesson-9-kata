@@ -55,7 +55,6 @@ describe("Gilded Rose", () => {
       gildedRose1.updateQuality();
       gildedRose1.updateQuality();
       expect(gildedRose1.items[0].quality).toBe(50);
-      expect(gildedRose1.items[0].sellIn).toBe(12);
     });
     it("should increase quality twice between 10 and 6 day before sell", () => {
       const gildedRose1 = new GildedRose([
@@ -64,7 +63,6 @@ describe("Gilded Rose", () => {
       gildedRose1.updateQuality();
       gildedRose1.updateQuality();
       expect(gildedRose1.items[0].quality).toBe(14);
-      expect(gildedRose1.items[0].sellIn).toBe(7);
     });
 
     it("should increase quality three times between 5 and 0 day before sell", () => {
@@ -74,7 +72,6 @@ describe("Gilded Rose", () => {
       gildedRose1.updateQuality();
       gildedRose1.updateQuality();
       expect(gildedRose1.items[0].quality).toBe(16);
-      expect(gildedRose1.items[0].sellIn).toBe(2);
     });
 
     it("should drop quality to zero after sell day", () => {
@@ -84,7 +81,6 @@ describe("Gilded Rose", () => {
       gildedRose1.updateQuality();
       gildedRose1.updateQuality();
       expect(gildedRose1.items[0].quality).toBe(0);
-      expect(gildedRose1.items[0].sellIn).toBe(-2);
     });
   });
 });
