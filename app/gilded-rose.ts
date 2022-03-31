@@ -4,9 +4,12 @@ export class Item {
   quality: number;
 
   constructor(name, sellIn, quality) {
+
     this.name = name;
     this.sellIn = sellIn;
-    this.quality = quality;
+    if (quality < 0 || quality > 50) {
+      throw new Error('Quality must be between 0 and 50');
+    } else this.quality = quality;
   }
 }
 

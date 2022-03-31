@@ -65,4 +65,7 @@ describe('Gilded Rose', () => {
     expect(items[0].sellIn).toBe(0);
     expect(items[0].quality).toBe(8);
   });
+  it("should not allowed to have create item with quality greater than 50", () => {
+    expect(() => new Item('example item', 1, 51)).toThrow();
+  });
 });
