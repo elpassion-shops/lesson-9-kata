@@ -37,6 +37,12 @@ describe("Gilded Rose", () => {
       const items = gildedRose.updateQuality();
       expect(items[0].quality).toBe(0);
     });
+
+    it("Aged Brie quality should be equal 0", () => {
+      const gildedRose = new GildedRose([new Item("Backstage", 1, 0)]);
+      const items = gildedRose.updateQuality();
+      expect(items[0].quality).toBe(0);
+    });
   });
 
   describe("Backstage passes quality should increase after day", () => {
