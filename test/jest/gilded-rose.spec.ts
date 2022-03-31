@@ -18,6 +18,14 @@ describe("Gilded Rose", () => {
       });
     });
 
+    describe("Once the sell by date has passed, Quality degrades twice as fast", () => {
+      it("quality should be 23", () => {
+        const gildedRose = new GildedRose([new Item("foo", 0, 25)]);
+        const items = gildedRose.updateQuality();
+        expect(items[0].quality).toBe(23);
+      });
+    });
+
     describe("decrease quality for normal item cannot be under 0", () => {
       it("quality should be equal 0", () => {
         const gildedRose = new GildedRose([new Item("example item", 1, 0)]);
@@ -132,14 +140,6 @@ describe("Gilded Rose", () => {
       ]);
       const items = gildedRose.updateQuality();
       expect(items[0].quality).toBe(20);
-    });
-  });
-
-  describe("Once the sell by date has passed, Quality degrades twice as fast", () => {
-    it("quality should be 23", () => {
-      const gildedRose = new GildedRose([new Item("foo", 0, 25)]);
-      const items = gildedRose.updateQuality();
-      expect(items[0].quality).toBe(23);
     });
   });
 
