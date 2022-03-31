@@ -45,6 +45,16 @@ describe("Gilded Rose", () => {
     });
   });
 
+  describe("quality for Sulfuras should never change", () => {
+    it("Sulfuras, Hand of Ragnaros quality should be equal 20", () => {
+      const gildedRose = new GildedRose([
+        new Item("Sulfuras, Hand of Ragnaros", 1, 20),
+      ]);
+      const items = gildedRose.updateQuality();
+      expect(items[0].quality).toBe(20);
+    });
+  });
+
   describe("Backstage passes quality should increase after day", () => {
     it("quality should be equal 26", () => {
       const gildedRose = new GildedRose([
