@@ -30,6 +30,10 @@ export class GildedRose {
     this.handleSulfuras(i);
     this.handleNormalItems(i);
     this.handleAgedBrie(i);
+    this.handleBackstage(i);
+  }
+
+  private handleBackstage(i: number) {
     if (this.items[i].name === 'Backstage passes to a TAFKAL80ETC concert') {
       let qualityChange = 0;
       if (this.items[i].sellIn > 10) {
@@ -64,8 +68,6 @@ export class GildedRose {
   }
 
   private handleSulfuras(i: number) {
-    if (this.items[i].name === 'Sulfuras, Hand of Ragnaros') {
-    }
-    ;
+    if (this.items[i].name === 'Sulfuras, Hand of Ragnaros') {}
   }
 }
