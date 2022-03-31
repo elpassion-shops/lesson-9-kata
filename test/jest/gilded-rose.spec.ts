@@ -127,4 +127,22 @@ describe("Gilded Rose", () => {
       expect(items[0].quality).toBe(27);
     });
   });
+
+  describe("Aged Brie quality shouldn't be bigger than 50", () => {
+    it("quality should be equal 50", () => {
+      const gildedRose = new GildedRose([new Item("Aged Brie", 0, 50)]);
+      const items = gildedRose.updateQuality();
+      expect(items[0].quality).toBe(50);
+    });
+  });
+
+  describe("Sulfuras” quality is 80", () => {
+    it("quality should be 80", () => {
+      const gildedRose = new GildedRose([
+        new Item("Sulfuras, Hand of Ragnaros", 0, 80),
+      ]);
+      const items = gildedRose.updateQuality();
+      expect(items[0].quality).toBe(80);
+    });
+  });
 });
