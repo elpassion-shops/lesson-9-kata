@@ -85,15 +85,41 @@ describe("Gilded Rose", () => {
     });
   });
 
-  describe("quality for additional items cannot be under 0", () => {
-    it("quality should be equal 0", () => {
-      const gildedRose = new GildedRose([new Item("example item", 1, 0)]);
+  describe("tests for Aged Brie", () => {
+    it("Aged Brie quality should be equal 0", () => {
+      const gildedRose = new GildedRose([new Item("Backstage", 1, 0)]);
       const items = gildedRose.updateQuality();
       expect(items[0].quality).toBe(0);
     });
 
-    it("Aged Brie quality should be equal 0", () => {
-      const gildedRose = new GildedRose([new Item("Backstage", 1, 0)]);
+    describe("Aged Brie quality should increases by 1 after day", () => {
+      it("quality should be 26", () => {
+        const gildedRose = new GildedRose([new Item("Aged Brie", 5, 25)]);
+        const items = gildedRose.updateQuality();
+        expect(items[0].quality).toBe(26);
+      });
+    });
+
+    describe("Aged Brie quality shouldn't be bigger than 50", () => {
+      it("quality should be equal 50", () => {
+        const gildedRose = new GildedRose([new Item("Aged Brie", 0, 50)]);
+        const items = gildedRose.updateQuality();
+        expect(items[0].quality).toBe(50);
+      });
+    });
+
+    describe("Once the sell by date of Aged Brie has passed, Quality increases twice as fast", () => {
+      it("quality should be 23", () => {
+        const gildedRose = new GildedRose([new Item("Aged Brie", 0, 25)]);
+        const items = gildedRose.updateQuality();
+        expect(items[0].quality).toBe(27);
+      });
+    });
+  });
+
+  describe("quality for additional items cannot be under 0", () => {
+    it("quality should be equal 0", () => {
+      const gildedRose = new GildedRose([new Item("example item", 1, 0)]);
       const items = gildedRose.updateQuality();
       expect(items[0].quality).toBe(0);
     });
@@ -109,34 +135,11 @@ describe("Gilded Rose", () => {
     });
   });
 
-  describe("Aged Brie quality should increases by 1 after day", () => {
-    it("quality should be 26", () => {
-      const gildedRose = new GildedRose([new Item("Aged Brie", 5, 25)]);
-      const items = gildedRose.updateQuality();
-      expect(items[0].quality).toBe(26);
-    });
-  });
-
   describe("Once the sell by date has passed, Quality degrades twice as fast", () => {
     it("quality should be 23", () => {
       const gildedRose = new GildedRose([new Item("foo", 0, 25)]);
       const items = gildedRose.updateQuality();
       expect(items[0].quality).toBe(23);
-    });
-  });
-  describe("Once the sell by date of Aged Brie has passed, Quality increases twice as fast", () => {
-    it("quality should be 23", () => {
-      const gildedRose = new GildedRose([new Item("Aged Brie", 0, 25)]);
-      const items = gildedRose.updateQuality();
-      expect(items[0].quality).toBe(27);
-    });
-  });
-
-  describe("Aged Brie quality shouldn't be bigger than 50", () => {
-    it("quality should be equal 50", () => {
-      const gildedRose = new GildedRose([new Item("Aged Brie", 0, 50)]);
-      const items = gildedRose.updateQuality();
-      expect(items[0].quality).toBe(50);
     });
   });
 
