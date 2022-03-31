@@ -41,4 +41,10 @@ describe('Gilded Rose', () => {
     expect(items[0].sellIn).toBe(1);
     expect(items[0].quality).toBe(10);
   });
+  it("should 'Backstage passes' drops to 0 after the concert", () => {
+    const gildedRose = new GildedRose([new Item('Backstage passes to a TAFKAL80ETC concert', 0, 10)]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].sellIn).toBe(-1);
+    expect(items[0].quality).toBe(0);
+  });
 });
