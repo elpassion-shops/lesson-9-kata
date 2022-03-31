@@ -13,16 +13,23 @@ export class Item {
 }
 
 class NormalItem {
-constructor(
-private sellIn: number,
-private quality: number
-){}
+  constructor(private sellIn: number, private quality: number) {}
 
-tick() {
+  tick() {
     this.quality -= this.sellIn <= 0 ? 2 : 1;
     if (this.quality < 0) this.quality = 0;
     this.sellIn -= 1;
+  }
 }
+
+class AgedBrie {
+  constructor(private sellIn: number, private quality: number) {}
+
+  tick() {
+    this.quality -= this.sellIn <= 0 ? 2 : 1;
+    if (this.quality < 0) this.quality = 0;
+    this.sellIn -= 1;
+  }
 }
 
 export class GildedRose {
@@ -39,10 +46,10 @@ export class GildedRose {
   ];
 
   updateQuality() {
-   this.items.forEach((_, i) => {
-     let item = this.items[i]
+    this.items.forEach((_, i) => {
+      let item = this.items[i];
       this.updateItemQuality(item);
-    })
+    });
     return this.items;
   }
 
@@ -52,7 +59,7 @@ export class GildedRose {
     this.handleBackstagePasses(item);
   }
 
-  private handleNormalItems(item: Item){
+  private handleNormalItems(item: Item) {
     if (!this.SPECIAL_ITEMS.includes(item.name)) {
       item.quality -= item.sellIn <= 0 ? 2 : 1;
       if (item.quality < 0) item.quality = 0;
@@ -87,8 +94,7 @@ export class GildedRose {
   }
 }
 
-
-//najpierw napisaliśmy testy dla całej logiki biznesowej 
+//najpierw napisaliśmy testy dla całej logiki biznesowej
 //pogrupowaliśmy testy w oddzielne grupy dla każdego produktu
 //później returnowaliśmy w początkowych częściach kodu, żeby zobaczyć co przechodzi, a conie i implementowaliśmy kod dla poszczególnych przypadków
 //negujemy scenariusze - zanim usuniemy statry kod, to piszemy nowy
