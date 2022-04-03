@@ -10,8 +10,8 @@ describe("Gilded Rose", () => {
 
     it("once the sell by date has passed, quality should degrades twice as fast", () => {
       const gildedRose = new GildedRose([new Item("foo", 0, 25)]);
-      gildedRose.updateQuality();
-      expect(gildedRose.items[0].quality).toBe(23);
+      const items = gildedRose.updateQuality();
+      expect(items[0].quality).toBe(23);
     });
 
     it("quality should't be under 0", () => {
@@ -108,10 +108,10 @@ describe("Gilded Rose", () => {
   describe("tests for Sulfuras", () => {
     it("quality should never change", () => {
       const gildedRose = new GildedRose([
-        new Item("Sulfuras, Hand of Ragnaros", 1, 20),
+        new Item("Sulfuras, Hand of Ragnaros", 1, 80),
       ]);
       const items = gildedRose.updateQuality();
-      expect(items[0].quality).toBe(20);
+      expect(items[0].quality).toBe(80);
     });
   });
 });
