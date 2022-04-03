@@ -25,11 +25,18 @@ export class GildedRose {
 
   updateQuality() {
     for (let i = 0; i < this.items.length; i++) {
+      if (this.items[i].name === "Aged Brie") {
+        this.items[i].quality += this.items[i].sellIn <= 0 ? 2 : 1;
+        if (this.items[i].quality > 50) this.items[i].quality = 50;
+        this.items[i].sellIn -= 1;
+        return this.items;
+      }
+
       if (!this.SPECIAL_ITEMS.includes(this.items[i].name)) {
         this.items[i].quality -= this.items[i].sellIn <= 0 ? 2 : 1;
         if (this.items[i].quality < 0) this.items[i].quality = 0;
         this.items[i].sellIn--;
-        continue;
+        return this.items;
       }
 
       if (
