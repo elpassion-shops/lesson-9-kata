@@ -17,36 +17,37 @@ export class GildedRose {
     this.items = items;
   }
 
-  private SPECIAL_ITEMS = [
-    "Aged Brie",
-    "Sulfuras, Hand of Ragnaros",
-    "Backstage passes to a TAFKAL80ETC concert",
-  ];
-
   updateQuality() {
     this.items = this.items.map((item) => {
-      if (item.name === "Sulfuras, Hand of Ragnaros") {
-        const sulfuras = new SulfurasItem(item.name, item.sellIn, item.quality);
+      switch (item.name) {
+        case "Sulfuras, Hand of Ragnaros":
+          return new SulfurasItem(
+            item.name,
+            item.sellIn,
+            item.quality
+          ).changeQuality();
 
-        return sulfuras.changeQuality();
+        case "Backstage passes to a TAFKAL80ETC concert":
+          return new BackstagePasses(
+            item.name,
+            item.sellIn,
+            item.quality
+          ).changeQuality();
+
+        case "Aged Brie":
+          return new AgedBrie(
+            item.name,
+            item.sellIn,
+            item.quality
+          ).changeQuality();
+
+        default:
+          return new NormalItem(
+            item.name,
+            item.sellIn,
+            item.quality
+          ).changeQuality();
       }
-
-      if (item.name === "Backstage passes to a TAFKAL80ETC concert") {
-        const backstagePasses = new BackstagePasses(
-          item.name,
-          item.sellIn,
-          item.quality
-        );
-
-        return backstagePasses.handle();
-      }
-
-      if (item.name === "Aged Brie") {
-        const agedBrie = new AgedBrie(item.name, item.sellIn, item.quality);
-
-        return agedBrie.handle();
-      } else
-        return new NormalItem(item.name, item.sellIn, item.quality).handle();
     });
 
     return this.items;
@@ -71,8 +72,7 @@ export abstract class OurItem extends Item {
   }
 
   handle() {
-    this.changeQuality().handleQualityOutOfRange().decreaseSellIn();
-    return this;
+    return this.changeQuality().handleQualityOutOfRange().decreaseSellIn();
   }
 }
 
@@ -97,6 +97,7 @@ export class BackstagePasses extends OurItem {
     } else if (this.sellIn <= 5) {
       this.quality += 3;
     } else this.quality += this.sellIn <= 10 ? 2 : 1;
+    return this;
   }
 }
 
