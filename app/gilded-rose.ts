@@ -45,13 +45,25 @@ export class GildedRose {
       }
 
       if (!this.SPECIAL_ITEMS.includes(this.items[i].name)) {
-        this.items[i].quality -= this.items[i].sellIn <= 0 ? 2 : 1;
-        if (this.items[i].quality < 0) this.items[i].quality = 0;
-        this.items[i].sellIn--;
-        return this.items;
+        const normalItem = new NormalItem(
+          this.items[i].name,
+          this.items[i].sellIn,
+          this.items[i].quality
+        );
+
+        normalItem.updateQuality(this.items, i);
       }
     }
 
     return this.items;
+  }
+}
+
+class NormalItem extends Item {
+  updateQuality(items: Item[], i: number) {
+    items[i].quality -= items[i].sellIn <= 0 ? 2 : 1;
+    if (items[i].quality < 0) items[i].quality = 0;
+    items[i].sellIn--;
+    return items;
   }
 }
