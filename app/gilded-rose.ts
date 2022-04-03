@@ -38,10 +38,13 @@ export class GildedRose {
       }
 
       if (this.items[i].name === "Aged Brie") {
-        this.items[i].quality += this.items[i].sellIn <= 0 ? 2 : 1;
-        if (this.items[i].quality > 50) this.items[i].quality = 50;
-        this.items[i].sellIn -= 1;
-        return this.items;
+        const agedBrie = new AgedBrie(
+          this.items[i].name,
+          this.items[i].sellIn,
+          this.items[i].quality
+        );
+
+        agedBrie.updateQuality(this.items, i);
       }
 
       if (!this.SPECIAL_ITEMS.includes(this.items[i].name)) {
@@ -63,6 +66,15 @@ class NormalItem extends Item {
   updateQuality(items: Item[], i: number) {
     items[i].quality -= items[i].sellIn <= 0 ? 2 : 1;
     if (items[i].quality < 0) items[i].quality = 0;
+    items[i].sellIn--;
+    return items;
+  }
+}
+
+class AgedBrie extends Item {
+  updateQuality(items: Item[], i: number) {
+    items[i].quality += items[i].sellIn <= 0 ? 2 : 1;
+    if (items[i].quality > 50) items[i].quality = 50;
     items[i].sellIn--;
     return items;
   }
