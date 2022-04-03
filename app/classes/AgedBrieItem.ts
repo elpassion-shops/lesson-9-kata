@@ -1,6 +1,6 @@
-import { OurItem } from "./OurItem";
+import { BaseItem } from "./BaseItem";
 
-export class AgedBrie extends OurItem {
+export class AgedBrieItem extends BaseItem {
   changeQuality() {
     this.quality += this.sellIn <= 0 ? 2 : 1;
     return this;

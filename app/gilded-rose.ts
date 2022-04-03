@@ -1,8 +1,8 @@
 import { Item } from "./classes/Item";
 import { NormalItem } from "./classes/NormalItem";
 import { SulfurasItem } from "./classes/SulfurasItem";
-import { BackstagePasses } from "./classes/BackstagePasses";
-import { AgedBrie } from "./classes/AgedBrie";
+import { BackstagePassesItem } from "./classes/BackstagePassesItem";
+import { AgedBrieItem } from "./classes/AgedBrieItem";
 import { ConjuredItem } from "./classes/ConjuredItem";
 
 export class GildedRose {
@@ -16,8 +16,8 @@ export class GildedRose {
     return (
       {
         "Sulfuras, Hand of Ragnaros": SulfurasItem,
-        "Backstage passes to a TAFKAL80ETC concert": BackstagePasses,
-        "Aged Brie": AgedBrie,
+        "Backstage passes to a TAFKAL80ETC concert": BackstagePassesItem,
+        "Aged Brie": AgedBrieItem,
         "Conjured Mana Cake": ConjuredItem,
       }[itemName] || NormalItem
     );

@@ -1,6 +1,6 @@
-import { OurItem } from "./OurItem";
+import { BaseItem } from "./BaseItem";
 
-export class BackstagePasses extends OurItem {
+export class BackstagePassesItem extends BaseItem {
   changeQuality() {
     if (this.sellIn <= 0) {
       this.quality = 0;
