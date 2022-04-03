@@ -91,22 +91,20 @@ describe("Gilded Rose", () => {
       expect(items[0].quality).toBe(27);
     });
 
-    describe("quality shouldn't be bigger than 50", () => {
-      it("quality should be equal 50", () => {
-        const gildedRose = new GildedRose([new Item("Aged Brie", 0, 50)]);
-        const items = gildedRose.updateInventory();
-        expect(items[0].quality).toBe(50);
-      });
+    it("quality shouldn't be bigger than 50", () => {
+      const gildedRose = new GildedRose([new Item("Aged Brie", 0, 50)]);
+      const items = gildedRose.updateInventory();
+      expect(items[0].quality).toBe(50);
+    });
 
-      it("sellIn should decrease by 1 after day", () => {
-        const gildedRose = new GildedRose([new Item("Aged Brie", 1, 0)]);
-        const items = gildedRose.updateInventory();
-        expect(items[0].sellIn).toBe(0);
-      });
+    it("sellIn should decrease by 1 after day", () => {
+      const gildedRose = new GildedRose([new Item("Aged Brie", 1, 0)]);
+      const items = gildedRose.updateInventory();
+      expect(items[0].sellIn).toBe(0);
     });
   });
 
-  describe("tests for Sulfuras", () => {
+  describe("updateInventory for Sulfuras", () => {
     it("quality should never change", () => {
       const gildedRose = new GildedRose([
         new Item("Sulfuras, Hand of Ragnaros", 1, 80),
