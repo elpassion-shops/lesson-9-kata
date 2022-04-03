@@ -3,6 +3,7 @@ import { NormalItem } from "./classes/NormalItem";
 import { SulfurasItem } from "./classes/SulfurasItem";
 import { BackstagePasses } from "./classes/BackstagePasses";
 import { AgedBrie } from "./classes/AgedBrie";
+import { ConjuredItem } from "./classes/ConjuredItem";
 
 export class GildedRose {
   items: Array<Item>;
@@ -17,6 +18,7 @@ export class GildedRose {
         "Sulfuras, Hand of Ragnaros": SulfurasItem,
         "Backstage passes to a TAFKAL80ETC concert": BackstagePasses,
         "Aged Brie": AgedBrie,
+        "Conjured Mana Cake": ConjuredItem,
       }[itemName] || NormalItem
     );
   }
