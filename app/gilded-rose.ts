@@ -24,35 +24,27 @@ export class GildedRose {
   ];
 
   updateQuality() {
-    for (let i = 0; i < this.items.length; i++) {
-      if (this.items[i].name === "Backstage passes to a TAFKAL80ETC concert") {
+    for (const item of this.items) {
+      if (item.name === "Backstage passes to a TAFKAL80ETC concert") {
         const backstagePasses = new BackstagePasses(
-          this.items[i].name,
-          this.items[i].sellIn,
-          this.items[i].quality
+          item.name,
+          item.sellIn,
+          item.quality
         );
 
-        backstagePasses.updateQuality(this.items, i);
+        backstagePasses.updateQuality(item);
       }
 
-      if (this.items[i].name === "Aged Brie") {
-        const agedBrie = new AgedBrie(
-          this.items[i].name,
-          this.items[i].sellIn,
-          this.items[i].quality
-        );
+      if (item.name === "Aged Brie") {
+        const agedBrie = new AgedBrie(item.name, item.sellIn, item.quality);
 
-        agedBrie.updateQuality(this.items, i);
+        agedBrie.updateQuality(item);
       }
 
-      if (!this.SPECIAL_ITEMS.includes(this.items[i].name)) {
-        const normalItem = new NormalItem(
-          this.items[i].name,
-          this.items[i].sellIn,
-          this.items[i].quality
-        );
+      if (!this.SPECIAL_ITEMS.includes(item.name)) {
+        const normalItem = new NormalItem(item.name, item.sellIn, item.quality);
 
-        normalItem.updateQuality(this.items, i);
+        normalItem.updateQuality(item);
       }
     }
 
@@ -61,33 +53,33 @@ export class GildedRose {
 }
 
 class NormalItem extends Item {
-  updateQuality(items: Item[], i: number) {
-    items[i].quality -= items[i].sellIn <= 0 ? 2 : 1;
-    if (items[i].quality < 0) items[i].quality = 0;
-    items[i].sellIn--;
-    return items;
+  updateQuality(item: Item) {
+    item.quality -= item.sellIn <= 0 ? 2 : 1;
+    if (item.quality < 0) item.quality = 0;
+    item.sellIn--;
+    return item;
   }
 }
 
 class AgedBrie extends Item {
-  updateQuality(items: Item[], i: number) {
-    items[i].quality += items[i].sellIn <= 0 ? 2 : 1;
-    if (items[i].quality > 50) items[i].quality = 50;
-    items[i].sellIn--;
-    return items;
+  updateQuality(item: Item) {
+    item.quality += item.sellIn <= 0 ? 2 : 1;
+    if (item.quality > 50) item.quality = 50;
+    item.sellIn--;
+    return item;
   }
 }
 
 class BackstagePasses extends Item {
-  updateQuality(items: Item[], i: number) {
-    if (items[i].sellIn <= 0) {
-      items[i].quality = 0;
-    } else if (items[i].sellIn <= 5) {
-      items[i].quality += 3;
-    } else items[i].quality += items[i].sellIn <= 10 ? 2 : 1;
+  updateQuality(item: Item) {
+    if (item.sellIn <= 0) {
+      item.quality = 0;
+    } else if (item.sellIn <= 5) {
+      item.quality += 3;
+    } else item.quality += item.sellIn <= 10 ? 2 : 1;
 
-    if (items[i].quality > 50) items[i].quality = 50;
-    items[i].sellIn -= 1;
-    return items;
+    if (item.quality > 50) item.quality = 50;
+    item.sellIn -= 1;
+    return item;
   }
 }
