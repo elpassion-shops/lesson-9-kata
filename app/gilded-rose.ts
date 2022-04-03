@@ -25,6 +25,12 @@ export class GildedRose {
 
   updateQuality() {
     for (const item of this.items) {
+      if (item.name === "Sulfuras, Hand of Ragnaros") {
+        const sulfuras = new SulfurasItem(item.name, item.sellIn, item.quality);
+
+        sulfuras.updateQuality(item);
+      }
+
       if (item.name === "Backstage passes to a TAFKAL80ETC concert") {
         const backstagePasses = new BackstagePasses(
           item.name,
@@ -81,5 +87,12 @@ class BackstagePasses extends Item {
     if (item.quality > 50) item.quality = 50;
     item.sellIn -= 1;
     return item;
+  }
+}
+
+class SulfurasItem extends Item {
+  updateQuality(item: Item) {
+    item.quality = 80;
+    return this;
   }
 }
