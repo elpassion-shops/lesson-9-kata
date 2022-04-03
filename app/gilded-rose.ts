@@ -26,15 +26,13 @@ export class GildedRose {
   updateQuality() {
     for (let i = 0; i < this.items.length; i++) {
       if (this.items[i].name === "Backstage passes to a TAFKAL80ETC concert") {
-        if (this.items[i].sellIn <= 0) {
-          this.items[i].quality = 0;
-        } else if (this.items[i].sellIn <= 5) {
-          this.items[i].quality += 3;
-        } else this.items[i].quality += this.items[i].sellIn <= 10 ? 2 : 1;
+        const backstagePasses = new BackstagePasses(
+          this.items[i].name,
+          this.items[i].sellIn,
+          this.items[i].quality
+        );
 
-        if (this.items[i].quality > 50) this.items[i].quality = 50;
-        this.items[i].sellIn -= 1;
-        return this.items;
+        backstagePasses.updateQuality(this.items, i);
       }
 
       if (this.items[i].name === "Aged Brie") {
@@ -76,6 +74,20 @@ class AgedBrie extends Item {
     items[i].quality += items[i].sellIn <= 0 ? 2 : 1;
     if (items[i].quality > 50) items[i].quality = 50;
     items[i].sellIn--;
+    return items;
+  }
+}
+
+class BackstagePasses extends Item {
+  updateQuality(items: Item[], i: number) {
+    if (items[i].sellIn <= 0) {
+      items[i].quality = 0;
+    } else if (items[i].sellIn <= 5) {
+      items[i].quality += 3;
+    } else items[i].quality += items[i].sellIn <= 10 ? 2 : 1;
+
+    if (items[i].quality > 50) items[i].quality = 50;
+    items[i].sellIn -= 1;
     return items;
   }
 }
