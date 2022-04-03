@@ -1,4 +1,5 @@
-import { Item, GildedRose } from "@/gilded-rose";
+import { Item } from "@/classes/Item";
+import { GildedRose } from "@/gilded-rose";
 
 describe("Gilded Rose", () => {
   describe("updateQuality for normal items", () => {
