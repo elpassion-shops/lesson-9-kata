@@ -28,7 +28,7 @@ export class GildedRose {
       if (item.name === "Sulfuras, Hand of Ragnaros") {
         const sulfuras = new SulfurasItem(item.name, item.sellIn, item.quality);
 
-        sulfuras.updateQuality(item);
+        sulfuras.handle(item);
       }
 
       if (item.name === "Backstage passes to a TAFKAL80ETC concert") {
@@ -38,19 +38,19 @@ export class GildedRose {
           item.quality
         );
 
-        backstagePasses.updateQuality(item);
+        backstagePasses.handle(item);
       }
 
       if (item.name === "Aged Brie") {
         const agedBrie = new AgedBrie(item.name, item.sellIn, item.quality);
 
-        agedBrie.updateQuality(item);
+        agedBrie.handle(item);
       }
 
       if (!this.SPECIAL_ITEMS.includes(item.name)) {
         const normalItem = new NormalItem(item.name, item.sellIn, item.quality);
 
-        normalItem.updateQuality(item);
+        normalItem.handle(item);
       }
     }
 
@@ -59,7 +59,7 @@ export class GildedRose {
 }
 
 class NormalItem extends Item {
-  updateQuality(item: Item) {
+  handle(item: Item) {
     item.quality -= item.sellIn <= 0 ? 2 : 1;
     if (item.quality < 0) item.quality = 0;
     item.sellIn--;
@@ -68,7 +68,7 @@ class NormalItem extends Item {
 }
 
 class AgedBrie extends Item {
-  updateQuality(item: Item) {
+  handle(item: Item) {
     item.quality += item.sellIn <= 0 ? 2 : 1;
     if (item.quality > 50) item.quality = 50;
     item.sellIn--;
@@ -77,7 +77,7 @@ class AgedBrie extends Item {
 }
 
 class BackstagePasses extends Item {
-  updateQuality(item: Item) {
+  handle(item: Item) {
     if (item.sellIn <= 0) {
       item.quality = 0;
     } else if (item.sellIn <= 5) {
@@ -91,7 +91,7 @@ class BackstagePasses extends Item {
 }
 
 class SulfurasItem extends Item {
-  updateQuality(item: Item) {
+  handle(item: Item) {
     item.quality = 80;
     return this;
   }
