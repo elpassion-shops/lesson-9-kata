@@ -1,13 +1,13 @@
 import { Item } from "./Item";
 
 export abstract class BaseItem extends Item {
-  constructor(name, sellIn, quality) {
+  constructor(name: string, sellIn: number, quality: number) {
     super(name, sellIn, quality);
     return this.handle();
   }
-  abstract changeQuality();
+  abstract changeQuality(): BaseItem;
 
-  protected handleQualityOutOfRange() {
+  protected handleQualityOutOfRange(): BaseItem {
     if (this.quality < 0) {
       this.quality = 0;
     } else if (this.quality > 50) {
@@ -17,7 +17,7 @@ export abstract class BaseItem extends Item {
     return this;
   }
 
-  protected decreaseSellIn() {
+  protected decreaseSellIn(): BaseItem {
     this.sellIn--;
     return this;
   }
