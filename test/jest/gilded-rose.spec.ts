@@ -17,12 +17,21 @@ describe("Gilded Rose", () => {
         expect(items[0].quality).toBe(9);
       });
     });
+    describe("decrease SellIn for normal item each day", () => {
+      it("SellIn should by 0", () => {
+        const gildedRose = new GildedRose([new Item("example item", 1, 10)]);
+        const items = gildedRose.updateQuality();
+        expect(items[0].sellIn).toBe(0);
+      });
+    });
 
     describe("Once the sell by date has passed, Quality degrades twice as fast", () => {
       it("quality should be 23", () => {
         const gildedRose = new GildedRose([new Item("foo", 0, 25)]);
-        const items = gildedRose.updateQuality();
-        expect(items[0].quality).toBe(23);
+        // const items = gildedRose.updateQuality();
+        // expect(items[0].quality).toBe(23);
+        gildedRose.updateQuality();
+        expect(gildedRose.items[0].quality).toBe(23);
       });
     });
 
