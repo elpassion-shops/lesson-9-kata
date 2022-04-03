@@ -1,6 +1,10 @@
 import { Item } from "./Item";
 
 export abstract class OurItem extends Item {
+  constructor(name, sellIn, quality) {
+    super(name, sellIn, quality);
+    return this.handle();
+  }
   abstract changeQuality();
 
   protected handleQualityOutOfRange() {

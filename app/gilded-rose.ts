@@ -26,7 +26,7 @@ export class GildedRose {
   updateQuality() {
     this.items = this.items.map((item) => {
       const itemClass = GildedRose.getItemClass(item.name);
-      return new itemClass(item.name, item.sellIn, item.quality).handle();
+      return new itemClass(item.name, item.sellIn, item.quality);
     });
 
     return this.items;
