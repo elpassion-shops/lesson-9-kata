@@ -17,37 +17,20 @@ export class GildedRose {
     this.items = items;
   }
 
+  private static getItemClass(itemName: string) {
+    return (
+      {
+        "Sulfuras, Hand of Ragnaros": SulfurasItem,
+        "Backstage passes to a TAFKAL80ETC concert": BackstagePasses,
+        "Aged Brie": AgedBrie,
+      }[itemName] || NormalItem
+    );
+  }
+
   updateQuality() {
     this.items = this.items.map((item) => {
-      switch (item.name) {
-        case "Sulfuras, Hand of Ragnaros":
-          return new SulfurasItem(
-            item.name,
-            item.sellIn,
-            item.quality
-          ).changeQuality();
-
-        case "Backstage passes to a TAFKAL80ETC concert":
-          return new BackstagePasses(
-            item.name,
-            item.sellIn,
-            item.quality
-          ).changeQuality();
-
-        case "Aged Brie":
-          return new AgedBrie(
-            item.name,
-            item.sellIn,
-            item.quality
-          ).changeQuality();
-
-        default:
-          return new NormalItem(
-            item.name,
-            item.sellIn,
-            item.quality
-          ).changeQuality();
-      }
+      const itemClass = GildedRose.getItemClass(item.name);
+      return new itemClass(item.name, item.sellIn, item.quality).handle();
     });
 
     return this.items;
@@ -102,7 +85,7 @@ export class BackstagePasses extends OurItem {
 }
 
 class SulfurasItem extends Item {
-  changeQuality() {
+  handle() {
     this.quality = 80;
     return this;
   }
